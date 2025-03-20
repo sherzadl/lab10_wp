@@ -1,20 +1,23 @@
-package com.example.demo;
+package com.example.demo.cat5;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.cat4.GreetingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/calc")
 public class CalculatorController {
 
-    private final CalculatorService calculatorService;
+    private final GreetingService.CalculatorService calculatorService;
+    private final HistoryService historyService;
 
-    @Autowired
-    public CalculatorController(CalculatorService calculatorService) {
+    public CalculatorController(GreetingService.CalculatorService calculatorService, HistoryService historyService) {
         this.calculatorService = calculatorService;
+        this.historyService = historyService;
     }
 
     @GetMapping("/add")
@@ -35,5 +38,10 @@ public class CalculatorController {
     @GetMapping("/divide")
     public double divide(@RequestParam int a, @RequestParam int b) {
         return calculatorService.divide(a, b);
+    }
+
+    @GetMapping("/history")
+    public List<String> getHistory() {
+        return historyService.getHistory();
     }
 }

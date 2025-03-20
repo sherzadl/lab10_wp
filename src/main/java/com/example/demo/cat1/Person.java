@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.cat1;
 
 public class Person {
 
